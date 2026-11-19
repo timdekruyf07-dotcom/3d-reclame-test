@@ -3,25 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AISLE 5 STUDIO — diensten in het schap</title>
+<title>THE WHISKEY AISLE — curated bottles on the shelf</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root { --paper:#f4f1e8; --ink:#1a1a1a; --dots:#b8b3a3; --red:#e0261b; }
   * { box-sizing: border-box; }
-  body { margin:0; background:#d9d6cc; color:var(--ink); font:20px/1.3 'VT323','Space Mono',monospace;
-         display:grid; grid-template-columns:1fr minmax(360px,440px); gap:24px; padding:0 24px; }
+  body {
+    margin:0; background:#d9d6cc; color:var(--ink);
+    font:20px/1.3 'VT323','Space Mono',monospace;
+    display:grid; grid-template-columns:1fr minmax(360px,440px);
+    gap:24px; padding:0 24px;
+  }
+
   /* Stage */
   #stage { position:sticky; top:0; height:100vh; }
   #gl { width:100%; height:100%; display:block; }
-  #stage .hint { position:absolute; left:0; bottom:20px; width:100%; text-align:center; font-size:18px; letter-spacing:.1em; opacity:.7; pointer-events:none; }
-  #stage h1 { position:absolute; top:18px; left:0; margin:0; font:900 clamp(28px,4vw,56px)/0.95 'Arial Black',Arial,sans-serif; letter-spacing:-.02em; pointer-events:none; }
-  #stage h1 small { display:block; font:400 20px 'VT323',monospace; letter-spacing:.15em; margin-top:8px; }
+  #stage .hint {
+    position:absolute; left:0; bottom:20px; width:100%;
+    text-align:center; font-size:18px; letter-spacing:.1em;
+    opacity:.7; pointer-events:none;
+  }
+  #stage h1 {
+    position:absolute; top:18px; left:0; margin:0;
+    font:900 clamp(28px,4vw,56px)/0.95 'Arial Black',Arial,sans-serif;
+    letter-spacing:-.02em; pointer-events:none;
+  }
+  #stage h1 small {
+    display:block; font:400 20px 'VT323',monospace;
+    letter-spacing:.15em; margin-top:8px;
+  }
 
   /* Receipt */
-  .sheet { background:var(--paper); padding:36px 24px 70px; margin:24px 0;
-           background-image:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.018) 2px 3px);
-           --z:10px; -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/calc(var(--z)*2) 100%;
-           mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/calc(var(--z)*2) 100%; }
+  .sheet {
+    background:var(--paper); padding:36px 24px 70px; margin:24px 0;
+    background-image:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.018) 2px 3px);
+    --z:10px;
+    -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/calc(var(--z)*2) 100%;
+    mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/calc(var(--z)*2) 100%;
+  }
   .sheet h2 { margin:0; text-align:center; font-size:34px; letter-spacing:.08em; }
   .center { text-align:center; margin:4px 0; }
   .dash { border:0; border-top:2px dashed var(--ink); margin:14px 0; }
@@ -32,26 +51,53 @@
   .total { font-size:30px; border-top:2px solid var(--ink); padding-top:6px; margin-top:6px; }
   .barcode { width:100%; max-width:260px; display:block; margin:8px auto; fill:var(--ink); }
   .barcode text { fill:var(--ink); }
-  button { font:inherit; letter-spacing:.12em; cursor:pointer; border:0; background:var(--ink); color:var(--paper); padding:10px 12px; }
+
+  button {
+    font:inherit; letter-spacing:.12em; cursor:pointer; border:0;
+    background:var(--ink); color:var(--paper); padding:10px 12px;
+  }
   button:hover, button:focus-visible { background:var(--red); outline:none; }
   button.full { width:100%; margin-top:10px; }
   button.mini { padding:0 8px; margin-left:4px; }
-  .aisle button.item { all:unset; display:flex; width:100%; justify-content:space-between; gap:8px; cursor:pointer; text-transform:uppercase; padding:2px 0; }
-  .aisle button.item:hover, .aisle button.item:focus-visible, .aisle button.item.on { background:var(--ink); color:var(--paper); }
+
+  .aisle button.item {
+    all:unset; display:flex; width:100%; justify-content:space-between;
+    gap:8px; cursor:pointer; text-transform:uppercase; padding:2px 0;
+  }
+  .aisle button.item:hover,
+  .aisle button.item:focus-visible,
+  .aisle button.item.on {
+    background:var(--ink); color:var(--paper);
+  }
   .aisle .item .l { flex:1; overflow:hidden; white-space:nowrap; }
   .aisle .item .l::after { content:' ................................................'; opacity:.4; }
 
-  /* Nutrition table */
-  .nutrition { border:3px solid var(--ink); padding:6px 8px 10px; font:13px/1.4 'Space Mono',monospace; background:#fff; }
-  .nutrition h3 { margin:0; font:900 30px/1 'Arial Black',Arial,sans-serif; border-bottom:10px solid var(--ink); padding-bottom:4px; }
-  .nutrition .row { display:flex; justify-content:space-between; border-bottom:1px solid var(--ink); padding:3px 0; }
+  /* Facts table */
+  .nutrition {
+    border:3px solid var(--ink); padding:6px 8px 10px;
+    font:13px/1.4 'Space Mono',monospace; background:#fff;
+  }
+  .nutrition h3 {
+    margin:0; font:900 30px/1 'Arial Black',Arial,sans-serif;
+    border-bottom:10px solid var(--ink); padding-bottom:4px;
+  }
+  .nutrition .row {
+    display:flex; justify-content:space-between;
+    border-bottom:1px solid var(--ink); padding:3px 0;
+  }
   .nutrition .row.bold { font-weight:700; border-bottom-width:5px; }
-  .nutrition .warn { border:2px solid var(--ink); padding:4px 6px; margin:8px 0 0; font-size:12px; }
-  .nutrition .warn::before { content:'⚠ KAN BEVATTEN: '; font-weight:700; }
+  .nutrition .warn {
+    border:2px solid var(--ink); padding:4px 6px; margin:8px 0 0; font-size:12px;
+  }
+  .nutrition .warn::before { content:'⚠ NOTITIES: '; font-weight:700; }
   .nutrition button { font:700 14px 'Space Mono',monospace; }
 
   /* Print animation */
-  .print > * { clip-path:inset(0 0 100% 0); animation:print .3s steps(6) forwards; animation-delay:calc(var(--i)*90ms); }
+  .print > * {
+    clip-path:inset(0 0 100% 0);
+    animation:print .3s steps(6) forwards;
+    animation-delay:calc(var(--i) * 90ms);
+  }
   @keyframes print { to { clip-path:inset(0); } }
 
   @media (max-width:900px){
@@ -59,27 +105,32 @@
     #stage { height:60vh; }
     .sheet { margin-top:0; }
   }
-  @media (prefers-reduced-motion:reduce){ .print > * { animation:none; clip-path:none; } }
+  @media (prefers-reduced-motion:reduce){
+    .print > * { animation:none; clip-path:none; }
+  }
 </style>
+
 <script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
-  "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"
-} }
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/+esm"
+  }
+}
 </script>
 </head>
 <body>
 
-<section id="stage" aria-label="Schap met 3D-verpakkingen">
-  <h1>AISLE 5<br>STUDIO<small>★ DIENSTEN IN HET SCHAP ★</small></h1>
+<section id="stage" aria-label="Schap met whiskyflessen in 3D">
+  <h1>THE WHISKEY<br>AISLE<small>★ CURATED BOTTLES ON THE SHELF ★</small></h1>
   <canvas id="gl"></canvas>
-  <div class="hint">KLIK OP EEN PRODUCT · DRAAI HET OM DE ACHTERKANT TE LEZEN</div>
+  <div class="hint">KLIK OP EEN FLES · BEKIJK DE SELECTIE · ZET IN JE MANDJE</div>
 </section>
 
 <main class="sheet" id="receipt">
-  <h2>*** AISLE 5 STUDIO ***</h2>
-  <p class="center">KASSABON · GÅNG 5 · DIENSTEN</p>
+  <h2>*** THE WHISKEY AISLE ***</h2>
+  <p class="center">KASSABON · CURATED SELECTION · BOTTLES</p>
   <p class="center" id="stamp"></p>
   <hr class="dash">
 
@@ -94,33 +145,126 @@
 
 <script type="module">
 import * as THREE from 'three';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import gsap from 'gsap';
 
 /* ============ CONFIG ============ */
-const USE_GLB = false;                 // true = laad /assets/models/{box,can,pouch}.glb uit Blender
-const MAIL    = 'hello@aisle5.studio'; // checkout opent een mail naar dit adres
-const VAT     = 0.21;
+const MAIL = 'hello@whiskeyaisle.shop';
+const VAT  = 0.21;
 
 /* ============ DATA ============ */
-const SERVICES = [
-  { sku:'501234500001', name:'MERK IDENTITEIT', form:'box',   price:8500,  weight:'6 WEKEN',   color:'#e0261b', ink:'#fff',
-    facts:[['Logosysteem','1'],['Lettertypes','2'],['Brandbook','48 p.'],['Bestaand ego','0%']], warn:'STERKE MENINGEN, SERIF-LETTERS' },
-  { sku:'501234500002', name:'WEBSITE', form:'can',   price:18000, weight:'10 WEKEN',  color:'#0a6cff', ink:'#fff',
-    facts:[['Pagina\'s','tot 12'],['Lighthouse','95+'],['CMS','ja'],['Pop-ups','0%']], warn:'SNELLE LAADTIJDEN' },
-  { sku:'501234500003', name:'MOTION & 3D', form:'pouch', price:6200,  weight:'4 WEKEN',   color:'#ffd60a', ink:'#111',
-    facts:[['Seconden','30'],['Formaten','5'],['Real-time','100%'],['Stockbeeld','0%']], warn:'ZEER BEWEGELIJKE INHOUD' },
-  { sku:'501234500004', name:'SOCIAL CONTENT', form:'box', price:2400,  weight:'PER MAAND', color:'#1fa44a', ink:'#fff',
-    facts:[['Posts','12'],['Reels','4'],['Stories','20'],['Trending audio','0%']], warn:'ENGAGEMENT' },
-  { sku:'501234500005', name:'STRATEGIE SESSIE', form:'can', price:3000, weight:'2 DAGEN', color:'#ff7a00', ink:'#111',
-    facts:[['Workshops','2'],['Post-its','∞'],['Actielijst','1'],['Vergaderingen','0%']], warn:'DUIDELIJKE KEUZES' },
-  { sku:'501234500006', name:'RETAINER', form:'pouch', price:36000, weight:'12 MAANDEN', color:'#ff4fa3', ink:'#111',
-    facts:[['Uren/maand','80'],['Reactietijd','4 u'],['Kantoorkoffie','100%'],['Briefings','0%']], warn:'LANGE SAMENWERKING' },
+const PRODUCTS = [
+  {
+    sku:'501234500001',
+    name:'HOUSE BLEND',
+    subtitle:'BLENDED WHISKY',
+    form:'bottleTall',
+    price:34.95,
+    volume:'70 CL',
+    color:'#c18a2d',
+    glass:'#6f4e1f',
+    ink:'#111',
+    facts:[
+      ['Stijl','Blend'],
+      ['Regio','Scotland'],
+      ['Alcohol','40%'],
+      ['Smaak','Vanille & graan']
+    ],
+    warn:'SOEPEL, TOEGANKELIJK, DAGELIJKSE DRAM'
+  },
+  {
+    sku:'501234500002',
+    name:'SMALL BATCH',
+    subtitle:'BOURBON',
+    form:'bottleRound',
+    price:44.95,
+    volume:'70 CL',
+    color:'#b85d1e',
+    glass:'#7a4317',
+    ink:'#111',
+    facts:[
+      ['Stijl','Bourbon'],
+      ['Regio','Kentucky'],
+      ['Alcohol','43%'],
+      ['Smaak','Caramel & oak']
+    ],
+    warn:'ZOETERE STIJL, AMERIKAANSE EIK'
+  },
+  {
+    sku:'501234500003',
+    name:'HIGHLAND 12',
+    subtitle:'SINGLE MALT',
+    form:'bottleTall',
+    price:59.95,
+    volume:'70 CL',
+    color:'#d6b158',
+    glass:'#8a6225',
+    ink:'#111',
+    facts:[
+      ['Stijl','Single Malt'],
+      ['Regio','Highlands'],
+      ['Leeftijd','12 jaar'],
+      ['Smaak','Honing & appel']
+    ],
+    warn:'ROND, KLASSIEK, LICHT KRUIDIG'
+  },
+  {
+    sku:'501234500004',
+    name:'RYE RESERVE',
+    subtitle:'RYE WHISKEY',
+    form:'bottleSquare',
+    price:69.95,
+    volume:'70 CL',
+    color:'#8e4a2f',
+    glass:'#5d321f',
+    ink:'#fff',
+    facts:[
+      ['Stijl','Rye'],
+      ['Regio','USA'],
+      ['Alcohol','46%'],
+      ['Smaak','Peper & spice']
+    ],
+    warn:'KRUIDIG PROFIEL, DROGERE AFDRONK'
+  },
+  {
+    sku:'501234500005',
+    name:'JAPANESE OAK',
+    subtitle:'PURE MALT',
+    form:'bottleSlim',
+    price:89.95,
+    volume:'70 CL',
+    color:'#c9c3b7',
+    glass:'#8b5f20',
+    ink:'#111',
+    facts:[
+      ['Stijl','Pure Malt'],
+      ['Regio','Japan'],
+      ['Alcohol','45%'],
+      ['Smaak','Bloemig & clean']
+    ],
+    warn:'ELEGANT, SUBTIEL, VERFIJNDE HOUTTOON'
+  },
+  {
+    sku:'501234500006',
+    name:'ISLAY 18',
+    subtitle:'PEATED SINGLE MALT',
+    form:'bottleDark',
+    price:129.95,
+    volume:'70 CL',
+    color:'#1e1f22',
+    glass:'#2f2418',
+    ink:'#fff',
+    facts:[
+      ['Stijl','Peated Malt'],
+      ['Regio','Islay'],
+      ['Leeftijd','18 jaar'],
+      ['Smaak','Rook & zeezout']
+    ],
+    warn:'ROKERIG, INTENS, VOOR LIEFHEBBERS'
+  }
 ];
-const bySku = sku => SERVICES.find(s => s.sku === sku);
+
+const bySku = sku => PRODUCTS.find(p => p.sku === sku);
 const eur = n => '€ ' + n.toLocaleString('nl-NL', { minimumFractionDigits:2, maximumFractionDigits:2 });
 
 /* ============ EAN-13 ============ */
@@ -128,6 +272,7 @@ const L=['0001101','0011001','0010011','0111101','0100011','0110001','0101111','
 const G=['0100111','0110011','0011011','0100001','0011101','0111001','0000101','0010001','0001001','0010111'];
 const R=['1110010','1100110','1101100','1000010','1011100','1001110','1010000','1000100','1001000','1110100'];
 const P=['LLLLLL','LLGLGG','LLGGLG','LLGGGL','LGLLGG','LGGLLG','LGGGLL','LGLGLG','LGLGGL','LGGLGL'];
+
 function ean13(c12){
   const d=c12.split('').map(Number);
   const sum=d.reduce((s,n,i)=>s+n*(i%2?3:1),0);
@@ -138,174 +283,390 @@ function ean13(c12){
   for(let i=7;i<13;i++) bits+=R[dg[i]];
   return { full, bits: bits+'101' };
 }
+
 function barcodeSVG(c12,h=50){
   const {full,bits}=ean13(c12);
-  const bars=[...bits].map((b,i)=>b==='1'?`<rect x="${i}" y="0" width="1" height="${h}"/>`:'').join('');
+  const bars=[...bits].map((b,i)=>b==='1'?`<rect x="${i}" y="0" width="1" height="${h}"/>`:'' ).join('');
   return `<svg class="barcode" viewBox="0 0 95 ${h+12}" shape-rendering="crispEdges" role="img" aria-label="Barcode ${full}">${bars}<text x="47.5" y="${h+10}" text-anchor="middle" font-size="9" font-family="monospace">${full}</text></svg>`;
 }
 
-/* ============ LABEL TEXTURES (canvas) ============ */
+/* ============ LABEL TEXTURES ============ */
 function canvasTex(w,h,draw){
-  const c=document.createElement('canvas'); c.width=w; c.height=h;
+  const c=document.createElement('canvas');
+  c.width=w; c.height=h;
   draw(c.getContext('2d'),w,h);
-  const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=8;
+  const t=new THREE.CanvasTexture(c);
+  t.colorSpace=THREE.SRGBColorSpace;
+  t.anisotropy=8;
   return t;
 }
-function drawFront(g,x,y,w,h,s){
-  g.save(); g.translate(x,y); g.textBaseline='top';
-  const m=w*0.04, band=Math.max(h*0.28,w*0.42);
-  g.fillStyle=s.color; g.fillRect(0,0,w,h);
-  g.fillStyle='#fff'; g.fillRect(m,m,w-2*m,h-2*m);
-  g.fillStyle=s.color; g.fillRect(m,m,w-2*m,band);
-  g.fillStyle=s.ink;
-  const fs=w*0.1; g.font=`900 ${fs}px "Arial Black",Arial,sans-serif`;
-  s.name.split(' ').forEach((wd,i)=>g.fillText(wd,m*2,m*2+i*fs*1.05,w-m*4));
-  g.fillStyle='#111'; g.font=`bold ${w*0.06}px "Courier New",monospace`;
-  g.fillText(`NETTO ${s.weight}`,m*2,band+m*2.5);
-  g.font=`900 ${w*0.15}px "Arial Black",Arial,sans-serif`;
-  g.fillText('€'+s.price.toLocaleString('nl-NL'),m*2,band+m*2.5+w*0.1,w-m*4);
-  const {bits}=ean13(s.sku), bw=(w*0.55)/95, bh=h*0.1;
-  const bx=m*2, by=h-m*2.5-bh;
-  g.fillStyle='#fff'; g.fillRect(bx-6,by-6,95*bw+12,bh+12);
-  g.fillStyle='#000'; [...bits].forEach((b,i)=>b==='1'&&g.fillRect(bx+i*bw,by,bw+0.4,bh));
-  g.font=`bold ${w*0.12}px "Arial Black",Arial,sans-serif`; g.fillStyle=s.color;
-  g.fillText('★ NIEUW',w-m*2-w*0.34,h-m*2.5-w*0.12);
-  g.restore();
-}
-function drawFacts(g,x,y,w,h,s){
-  g.save(); g.translate(x,y); g.textBaseline='top';
+
+function drawBottleFront(g,w,h,p){
+  g.fillStyle=p.color;
+  g.fillRect(0,0,w,h);
+
   const m=w*0.06;
-  g.fillStyle='#fff'; g.fillRect(0,0,w,h);
-  g.strokeStyle='#111'; g.lineWidth=w*0.012; g.strokeRect(m,m,w-2*m,h-2*m);
-  let cy=m*1.4; const px=m*1.5, iw=w-3*m;
-  g.fillStyle='#111'; g.font=`900 ${w*0.12}px "Arial Black",Arial,sans-serif`;
-  g.fillText('DIENST FACTS',px,cy,iw); cy+=w*0.14;
-  g.fillRect(px,cy,iw,w*0.025); cy+=w*0.05;
-  const rh=w*0.085;
-  const row=(a,b,bold)=>{
-    g.font=`${bold?'bold ':''}${w*0.05}px "Courier New",monospace`;
-    g.fillText(a,px,cy); g.textAlign='right'; g.fillText(b,px+iw,cy); g.textAlign='left';
-    cy+=rh*0.9; g.fillRect(px,cy,iw,bold?w*0.012:w*0.004); cy+=rh*0.15;
+  g.fillStyle='#f9f5ea';
+  g.fillRect(m,m,w-2*m,h-2*m);
+
+  g.fillStyle=p.color;
+  g.fillRect(m,m,w-2*m,h*0.18);
+
+  g.fillStyle=p.ink;
+  g.textBaseline='top';
+  g.font=`900 ${w*0.11}px "Arial Black",Arial,sans-serif`;
+  const words=p.name.split(' ');
+  words.forEach((wd,i)=>g.fillText(wd,m*1.6,m*1.7+i*w*0.11,w-m*3.2));
+
+  g.font=`bold ${w*0.055}px "Courier New",monospace`;
+  g.fillText(p.subtitle,m*1.6,h*0.42,w-m*3.2);
+
+  g.font=`bold ${w*0.05}px "Courier New",monospace`;
+  g.fillText(`VOL. ${p.volume}`,m*1.6,h*0.52,w-m*3.2);
+  g.fillText(`AB ${p.facts.find(f=>f[0]==='Alcohol')?.[1] || ''}`,m*1.6,h*0.59,w-m*3.2);
+
+  g.font=`900 ${w*0.1}px "Arial Black",Arial,sans-serif`;
+  g.fillStyle=p.color;
+  g.fillText('SELECT',m*1.6,h*0.70,w-m*3.2);
+
+  g.fillStyle='#111';
+  g.font=`900 ${w*0.12}px "Arial Black",Arial,sans-serif`;
+  g.fillText('€'+p.price.toLocaleString('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2}),m*1.6,h*0.80,w-m*3.2);
+
+  const {bits}=ean13(p.sku);
+  const bw=(w*0.62)/95, bh=h*0.08;
+  const bx=m*1.6, by=h*0.87;
+  g.fillStyle='#fff';
+  g.fillRect(bx-5,by-5,95*bw+10,bh+10);
+  g.fillStyle='#000';
+  [...bits].forEach((b,i)=>b==='1' && g.fillRect(bx+i*bw,by,bw+0.4,bh));
+}
+
+function drawBottleBack(g,w,h,p){
+  g.fillStyle='#f9f5ea';
+  g.fillRect(0,0,w,h);
+
+  const m=w*0.07;
+  let y=m*1.1;
+  const left=m*1.2;
+  const right=w-m*1.2;
+  const lineH=h*0.085;
+
+  g.fillStyle='#111';
+  g.textBaseline='top';
+  g.font=`900 ${w*0.10}px "Arial Black",Arial,sans-serif`;
+  g.fillText('BOTTLE FACTS',left,y,right-left);
+  y += w*0.11;
+
+  g.fillRect(left,y,right-left,w*0.02);
+  y += w*0.05;
+
+  const row=(a,b,bold=false)=>{
+    g.font=`${bold?'bold ':''}${w*0.042}px "Courier New",monospace`;
+    g.fillText(a,left,y);
+    g.textAlign='right';
+    g.fillText(b,right,y);
+    g.textAlign='left';
+    y += lineH*0.72;
+    g.fillRect(left,y,right-left,bold ? w*0.012 : w*0.004);
+    y += lineH*0.18;
   };
-  row('Portie','1 project'); row('Levertijd',s.weight,true);
-  s.facts.forEach(f=>row(f[0],f[1]));
-  cy+=rh*0.3; g.font=`${w*0.04}px "Courier New",monospace`;
-  g.fillText('⚠ KAN BEVATTEN: '+s.warn,px,cy,iw);
-  g.restore();
+
+  row('Portie','1 bottle');
+  row('Inhoud',p.volume,true);
+  p.facts.forEach(f=>row(f[0],f[1]));
+  row('Prijs',eur(p.price));
+
+  y += lineH*0.3;
+  g.font=`${w*0.038}px "Courier New",monospace`;
+  const wrapped=`NOTITIES: ${p.warn}`;
+  wrapText(g,wrapped,left,y,right-left,w*0.05);
+
+  const {bits}=ean13(p.sku);
+  const bw=(w*0.62)/95, bh=h*0.07;
+  const bx=left, by=h*0.86;
+  g.fillStyle='#fff';
+  g.fillRect(bx-5,by-5,95*bw+10,bh+10);
+  g.fillStyle='#000';
+  [...bits].forEach((b,i)=>b==='1' && g.fillRect(bx+i*bw,by,bw+0.4,bh));
 }
 
-/* ============ GEOMETRIE (procedureel, vervangt Blender-modellen) ============ */
-const REF_H = 2.4;
-const metal = new THREE.MeshStandardMaterial({ color:0xcfd2d6, metalness:1, roughness:.3 });
-
-function buildBox(s){
-  const g=new THREE.Group();
-  const body=new THREE.Mesh(new RoundedBoxGeometry(1.7,2.4,.7,4,.05),
-    new THREE.MeshStandardMaterial({ color:s.color, roughness:.55 }));
-  const front=new THREE.Mesh(new THREE.PlaneGeometry(1.6,2.3),
-    new THREE.MeshStandardMaterial({ map:canvasTex(1024,1472,(c,w,h)=>drawFront(c,0,0,w,h,s)), roughness:.45 }));
-  front.position.z=.352;
-  const back=new THREE.Mesh(new THREE.PlaneGeometry(1.6,2.3),
-    new THREE.MeshStandardMaterial({ map:canvasTex(1024,1472,(c,w,h)=>drawFacts(c,0,0,w,h,s)), roughness:.5 }));
-  back.position.z=-.352; back.rotation.y=Math.PI;
-  g.add(body,front,back); return g;
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(' ');
+  let line = '';
+  for(let n=0; n<words.length; n++){
+    const testLine = line + words[n] + ' ';
+    const testWidth = ctx.measureText(testLine).width;
+    if(testWidth > maxWidth && n > 0){
+      ctx.fillText(line, x, y);
+      line = words[n] + ' ';
+      y += lineHeight;
+    }else{
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, x, y);
 }
-function buildCan(s){
-  const g=new THREE.Group(), r=.75, h=1.9;
-  const tex=canvasTex(2048,826,(c,w,hh)=>{
-    c.fillStyle='#fff'; c.fillRect(0,0,w,hh);
-    drawFront(c,w/2-350,0,700,hh,s);
-    drawFacts(c,-hh*0.45,0,hh*0.9,hh,s);          // achterkant: helft links…
-    drawFacts(c,w-hh*0.45,0,hh*0.9,hh,s);          // …en helft rechts van de naad
+
+/* ============ BOTTLE MATERIALS ============ */
+function makeBottleLabelFront(p){
+  return new THREE.MeshStandardMaterial({
+    map: canvasTex(768,1024,(c,w,h)=>drawBottleFront(c,w,h,p)),
+    roughness:.55,
+    metalness:.05
   });
-  const side=new THREE.MeshStandardMaterial({ map:tex, roughness:.35, metalness:.3 });
-  const geo=new THREE.CylinderGeometry(r,r,h,64,1,false,-Math.PI,Math.PI*2);
-  g.add(new THREE.Mesh(geo,[side,metal,metal]));
-  [h/2,-h/2].forEach(y=>{ const rim=new THREE.Mesh(new THREE.CylinderGeometry(r+.03,r+.03,.06,64),metal); rim.position.y=y; g.add(rim); });
-  g.position.y=0; return g;
 }
-function buildPouch(s){
-  const g=new THREE.Group(), W=1.7, H=2.3, D=.45;
-  const geo=new THREE.BoxGeometry(W,H,D,24,32,1);
-  const pos=geo.attributes.position;
-  for(let i=0;i<pos.count;i++){
-    const nx=pos.getX(i)/(W/2), ny=pos.getY(i)/(H/2), sz=Math.sign(pos.getZ(i))||1;
-    const f=Math.pow(Math.max(0,1-nx*nx),.6)*Math.max(0,1-Math.pow(ny,6));
-    pos.setZ(i, sz*(.04+.2*f));
-  }
-  geo.computeVertexNormals();
-  const foil=new THREE.MeshStandardMaterial({ color:s.color, roughness:.25, metalness:.4 });
-  const fr=new THREE.MeshStandardMaterial({ map:canvasTex(1024,1380,(c,w,h)=>drawFront(c,0,0,w,h,s)), roughness:.25, metalness:.25 });
-  const bk=new THREE.MeshStandardMaterial({ map:canvasTex(1024,1380,(c,w,h)=>drawFacts(c,0,0,w,h,s)), roughness:.3 });
-  g.add(new THREE.Mesh(geo,[foil,foil,foil,foil,fr,bk]));
-  [H/2,-H/2].forEach(y=>{ const seal=new THREE.Mesh(new THREE.BoxGeometry(W,.14,.08),foil); seal.position.y=y; g.add(seal); });
-  return g;
+function makeBottleLabelBack(p){
+  return new THREE.MeshStandardMaterial({
+    map: canvasTex(768,1024,(c,w,h)=>drawBottleBack(c,w,h,p)),
+    roughness:.55,
+    metalness:.05
+  });
 }
-const builders={ box:buildBox, can:buildCan, pouch:buildPouch };
 
-/* optioneel: echte Blender-GLB's */
-const draco=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
-const gltf=new GLTFLoader().setDRACOLoader(draco);
-async function getModel(s){
-  if(USE_GLB){
-    try{
-      const m=(await gltf.loadAsync(`/assets/models/${s.form}.glb`)).scene.clone(true);
-      const tex=canvasTex(1024,1024,(c,w,h)=>drawFront(c,0,0,w,h,s)); tex.flipY=false;
-      m.traverse(o=>{ if(o.isMesh && o.material.name==='Label'){ o.material=o.material.clone(); o.material.map=tex; } });
-      return m;
-    }catch(e){ console.warn('GLB niet gevonden, procedureel model gebruikt',e); }
+/* ============ BOTTLE BUILDERS ============ */
+function buildBottle(p, profile='tall'){
+  const group = new THREE.Group();
+
+  let bodyRadius = 0.42;
+  let bodyHeight = 1.95;
+  let neckRadius = 0.12;
+  let neckHeight = 0.42;
+  let shoulderY = bodyHeight/2 - 0.08;
+  let capRadius = 0.14;
+  let capHeight = 0.12;
+
+  if(profile==='round'){
+    bodyRadius = 0.48;
+    bodyHeight = 1.75;
+    neckRadius = 0.14;
+    neckHeight = 0.34;
+    capRadius = 0.16;
   }
-  return builders[s.form](s);
+
+  if(profile==='square'){
+    bodyRadius = 0.44;
+    bodyHeight = 1.90;
+    neckRadius = 0.11;
+    neckHeight = 0.34;
+    capRadius = 0.13;
+  }
+
+  if(profile==='slim'){
+    bodyRadius = 0.36;
+    bodyHeight = 2.10;
+    neckRadius = 0.10;
+    neckHeight = 0.38;
+    capRadius = 0.12;
+  }
+
+  if(profile==='dark'){
+    bodyRadius = 0.40;
+    bodyHeight = 2.00;
+    neckRadius = 0.11;
+    neckHeight = 0.36;
+    capRadius = 0.13;
+  }
+
+  const glassMat = new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color(p.glass),
+    transmission: 0.22,
+    thickness: 0.6,
+    roughness: 0.28,
+    metalness: 0.0,
+    transparent: true,
+    opacity: 0.96,
+    reflectivity: 0.35,
+    clearcoat: 0.25,
+    clearcoatRoughness: 0.25
+  });
+
+  let body;
+  if(profile==='square'){
+    body = new THREE.Mesh(
+      new THREE.BoxGeometry(0.85, bodyHeight, 0.62, 6, 10, 6),
+      glassMat
+    );
+  } else {
+    body = new THREE.Mesh(
+      new THREE.CylinderGeometry(bodyRadius*0.92, bodyRadius, bodyHeight, 48),
+      glassMat
+    );
+  }
+  group.add(body);
+
+  const shoulder = new THREE.Mesh(
+    new THREE.CylinderGeometry(neckRadius*1.5, bodyRadius*0.88, 0.28, 48),
+    glassMat
+  );
+  shoulder.position.y = shoulderY;
+  group.add(shoulder);
+
+  const neck = new THREE.Mesh(
+    new THREE.CylinderGeometry(neckRadius, neckRadius*1.05, neckHeight, 32),
+    glassMat
+  );
+  neck.position.y = shoulderY + 0.27;
+  group.add(neck);
+
+  const cap = new THREE.Mesh(
+    new THREE.CylinderGeometry(capRadius, capRadius, capHeight, 32),
+    new THREE.MeshStandardMaterial({ color:0x111111, roughness:.65, metalness:.15 })
+  );
+  cap.position.y = shoulderY + 0.27 + neckHeight/2 + capHeight/2 - 0.02;
+  group.add(cap);
+
+  const frontLabel = new THREE.Mesh(
+    new THREE.PlaneGeometry(profile==='square' ? 0.62 : 0.66, 1.05),
+    makeBottleLabelFront(p)
+  );
+  frontLabel.position.set(0, -0.08, profile==='square' ? 0.315 : bodyRadius + 0.01);
+  group.add(frontLabel);
+
+  const backLabel = new THREE.Mesh(
+    new THREE.PlaneGeometry(profile==='square' ? 0.58 : 0.60, 0.95),
+    makeBottleLabelBack(p)
+  );
+  backLabel.position.set(0, -0.05, -(profile==='square' ? 0.315 : bodyRadius + 0.01));
+  backLabel.rotation.y = Math.PI;
+  group.add(backLabel);
+
+  const liquid = new THREE.Mesh(
+    profile==='square'
+      ? new THREE.BoxGeometry(0.73, bodyHeight*0.72, 0.52, 4, 4, 4)
+      : new THREE.CylinderGeometry(bodyRadius*0.78, bodyRadius*0.82, bodyHeight*0.72, 40),
+    new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color(p.color),
+      transmission: 0.0,
+      roughness: 0.2,
+      transparent: true,
+      opacity: 0.80
+    })
+  );
+  liquid.position.y = -bodyHeight*0.08;
+  group.add(liquid);
+
+  return group;
 }
+
+const builders = {
+  bottleTall:  (p)=>buildBottle(p,'tall'),
+  bottleRound: (p)=>buildBottle(p,'round'),
+  bottleSquare:(p)=>buildBottle(p,'square'),
+  bottleSlim:  (p)=>buildBottle(p,'slim'),
+  bottleDark:  (p)=>buildBottle(p,'dark')
+};
 
 /* ============ SCENE ============ */
-const canvas=document.querySelector('#gl');
-const renderer=new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+const canvas = document.querySelector('#gl');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.toneMapping=THREE.ACESFilmicToneMapping;
-const scene=new THREE.Scene();
-scene.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(),.04).texture;
-const camera=new THREE.PerspectiveCamera(30,1,.1,100);
-const key=new THREE.DirectionalLight(0xffffff,1.6); key.position.set(3,6,6); scene.add(key);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-const SPACING=2.7, ROWS=[1.9,-1.7];
-const shelfMat=new THREE.MeshStandardMaterial({ color:0xb9b4a3, roughness:.6, metalness:.3 });
-ROWS.forEach(y=>{ const b=new THREE.Mesh(new THREE.BoxGeometry(8.8,.12,1.5),shelfMat); b.position.set(0,y-1.27,0); scene.add(b); });
+const scene = new THREE.Scene();
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
 
-const products=[]; let hovered=null, selected=null;
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const camera = new THREE.PerspectiveCamera(30,1,.1,100);
+
+const key = new THREE.DirectionalLight(0xffffff,1.8);
+key.position.set(3,6,6);
+scene.add(key);
+
+const fill = new THREE.DirectionalLight(0xffffff,.8);
+fill.position.set(-5,3,2);
+scene.add(fill);
+
+const ambient = new THREE.AmbientLight(0xffffff,.65);
+scene.add(ambient);
+
+const SPACING = 2.7;
+const ROWS = [1.9,-1.5];
+const shelfMat = new THREE.MeshStandardMaterial({ color:0xb9b4a3, roughness:.6, metalness:.3 });
+
+ROWS.forEach(y=>{
+  const b = new THREE.Mesh(new THREE.BoxGeometry(8.8,.12,1.7), shelfMat);
+  b.position.set(0,y-1.27,0);
+  scene.add(b);
+});
+
+const backWall = new THREE.Mesh(
+  new THREE.PlaneGeometry(16,12),
+  new THREE.MeshStandardMaterial({ color:0xe4dfd2, roughness:1 })
+);
+backWall.position.set(0,0,-2.1);
+scene.add(backWall);
+
+const products = [];
+let hovered = null, selected = null;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 async function build(){
-  const models=await Promise.all(SERVICES.map(getModel));
-  SERVICES.forEach((s,i)=>{
-    const row=Math.floor(i/3), col=i%3;
-    const sway=new THREE.Group(); sway.add(models[i]);
-    const hOff = s.form==='can' ? -(REF_H-2.0)/2 : s.form==='pouch' ? -.05 : 0;
-    models[i].position.y=hOff;
-    const pivot=new THREE.Group(); pivot.add(sway);
-    pivot.position.set((col-1)*SPACING+(row?0.0:0), ROWS[row], 0);
-    pivot.userData={ service:s, spin:0, sway, baseY:ROWS[row] };
-    scene.add(pivot); products.push(pivot);
+  PRODUCTS.forEach((p,i)=>{
+    const model = builders[p.form](p);
+    const row = Math.floor(i/3), col = i%3;
+
+    const sway = new THREE.Group();
+    sway.add(model);
+
+    model.position.y = 0.15;
+
+    const pivot = new THREE.Group();
+    pivot.add(sway);
+
+    pivot.position.set((col-1)*SPACING, ROWS[row], 0);
+    pivot.userData = { product:p, spin:0, sway, baseY:ROWS[row] };
+
+    scene.add(pivot);
+    products.push(pivot);
+
     gsap.from(pivot.position,{ y:7, duration:1.1, delay:i*.12, ease:'bounce.out' });
     gsap.from(pivot.rotation,{ y:Math.PI*2, duration:1.4, delay:i*.12, ease:'power3.out' });
   });
 }
 
-/* ============ INTERACTIE (GSAP) ============ */
-const ray=new THREE.Raycaster(), mouse=new THREE.Vector2();
-const findPivot=o=>{ while(o && !o.userData.service) o=o.parent; return o; };
+/* ============ INTERACTIE ============ */
+const ray = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+const findPivot = o => {
+  while(o && !o.userData.product) o = o.parent;
+  return o;
+};
 
 canvas.addEventListener('pointermove',e=>{
-  const r=canvas.getBoundingClientRect();
+  const r = canvas.getBoundingClientRect();
   mouse.set(((e.clientX-r.left)/r.width)*2-1, -((e.clientY-r.top)/r.height)*2+1);
   ray.setFromCamera(mouse,camera);
-  const hit=ray.intersectObjects(products,true)[0];
-  const next=hit?findPivot(hit.object):null;
-  if(next!==hovered){ if(hovered) leave(hovered); if(next) enter(next); hovered=next; canvas.style.cursor=next?'pointer':'default'; }
-  if(hovered) gsap.to(hovered.rotation,{ x:-mouse.y*.3, y:hovered.userData.spin+mouse.x*.6, duration:.6, ease:'power3.out', overwrite:'auto' });
+
+  const hit = ray.intersectObjects(products,true)[0];
+  const next = hit ? findPivot(hit.object) : null;
+
+  if(next !== hovered){
+    if(hovered) leave(hovered);
+    if(next) enter(next);
+    hovered = next;
+    canvas.style.cursor = next ? 'pointer' : 'default';
+  }
+
+  if(hovered){
+    gsap.to(hovered.rotation,{
+      x:-mouse.y*.16,
+      y:hovered.userData.spin + mouse.x*.32,
+      duration:.6,
+      ease:'power3.out',
+      overwrite:'auto'
+    });
+  }
 });
-canvas.addEventListener('pointerleave',()=>{ if(hovered){ leave(hovered); hovered=null; } });
-canvas.addEventListener('click',()=>{ if(hovered) select(hovered.userData.service.sku,true); });
+
+canvas.addEventListener('pointerleave',()=>{
+  if(hovered){ leave(hovered); hovered=null; }
+});
+
+canvas.addEventListener('click',()=>{
+  if(hovered) selectProduct(hovered.userData.product.sku,true);
+});
 
 function enter(p){
   gsap.to(p.scale,{ x:1.12,y:1.12,z:1.12, duration:.5, ease:'back.out(2)' });
@@ -323,100 +684,145 @@ function hop(p){
 }
 
 function resize(){
-  const w=canvas.clientWidth, h=canvas.clientHeight;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
   renderer.setSize(w,h,false);
-  camera.aspect=w/h;
-  const t=Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
-  const dist=Math.max(3.9/t, 4.6/(t*camera.aspect))+1;
-  camera.position.set(0,.1,dist); camera.lookAt(0,.1,0);
+  camera.aspect = w/h;
+  const t = Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
+  const dist = Math.max(4.0/t, 4.8/(t*camera.aspect)) + 1.8;
+  camera.position.set(0,.2,dist);
+  camera.lookAt(0,.1,0);
   camera.updateProjectionMatrix();
 }
-addEventListener('resize',resize); resize();
+addEventListener('resize',resize);
+resize();
 
 gsap.ticker.add(time=>{
-  if(!reduce) products.forEach((p,i)=>{ p.userData.sway.rotation.y=Math.sin(time*.6+i)*.25; });
+  if(!reduce){
+    products.forEach((p,i)=>{
+      p.userData.sway.rotation.y = Math.sin(time*.6+i)*.12;
+    });
+  }
   renderer.render(scene,camera);
 });
 
 /* ============ KASSABON-UI ============ */
-const aisleEl=document.querySelector('#aisle'), factsEl=document.querySelector('#facts'), basketEl=document.querySelector('#basket');
-document.querySelector('#stamp').textContent=new Date().toLocaleString('nl-NL',{dateStyle:'short',timeStyle:'short'}).toUpperCase();
+const aisleEl  = document.querySelector('#aisle');
+const factsEl  = document.querySelector('#facts');
+const basketEl = document.querySelector('#basket');
 
-aisleEl.innerHTML=SERVICES.map(s=>`
-  <button class="item" role="listitem" data-sku="${s.sku}"><span class="l">${s.name}</span><span>${eur(s.price)}</span></button>`).join('');
-aisleEl.addEventListener('click',e=>{ const b=e.target.closest('[data-sku]'); if(b) select(b.dataset.sku,true); });
+document.querySelector('#stamp').textContent =
+  new Date().toLocaleString('nl-NL',{ dateStyle:'short', timeStyle:'short' }).toUpperCase();
 
-function select(sku,spin){
-  const s=bySku(sku), p=products.find(x=>x.userData.service.sku===sku);
-  selected=sku;
-  aisleEl.querySelectorAll('.item').forEach(b=>b.classList.toggle('on',b.dataset.sku===sku));
-  factsEl.innerHTML=`
-    <h3>Dienst Facts</h3>
-    <div class="row"><span>Product</span><span>${s.name}</span></div>
-    <div class="row"><span>Portie</span><span>1 project</span></div>
-    <div class="row bold"><span>Levertijd</span><span>${s.weight}</span></div>
-    ${s.facts.map(f=>`<div class="row"><span>${f[0]}</span><span>${f[1]}</span></div>`).join('')}
-    <p class="warn">${s.warn}</p>
-    ${barcodeSVG(s.sku,40)}
-    <button class="full" data-add="${s.sku}">IN MANDJE · ${eur(s.price)} ✱</button>`;
-  if(spin && p){
-    p.userData.spin+=Math.PI*2;
-    gsap.to(p.rotation,{ y:p.userData.spin, x:0, duration:1.2, ease:'power4.inOut', overwrite:'auto' });
-  }
-}
-factsEl.addEventListener('click',e=>{
-  const b=e.target.closest('[data-add]'); if(!b) return;
-  add(b.dataset.add,1);
-  const p=products.find(x=>x.userData.service.sku===b.dataset.add); if(p) hop(p);
+aisleEl.innerHTML = PRODUCTS.map(p=>`
+  <button class="item" role="listitem" data-sku="${p.sku}">
+    <span class="l">${p.name}</span>
+    <span>${eur(p.price)}</span>
+  </button>
+`).join('');
+
+aisleEl.addEventListener('click',e=>{
+  const b = e.target.closest('[data-sku]');
+  if(b) selectProduct(b.dataset.sku,true);
 });
 
-/* ---- mandje ---- */
-const cart=new Map(JSON.parse(localStorage.getItem('aisle5-cart')||'[]'));
+function selectProduct(sku,spin){
+  const p = bySku(sku);
+  const mesh = products.find(x=>x.userData.product.sku===sku);
+  selected = sku;
+
+  aisleEl.querySelectorAll('.item').forEach(b=>b.classList.toggle('on', b.dataset.sku===sku));
+
+  factsEl.innerHTML = `
+    <h3>Bottle Facts</h3>
+    <div class="row"><span>Product</span><span>${p.name}</span></div>
+    <div class="row"><span>Type</span><span>${p.subtitle}</span></div>
+    <div class="row bold"><span>Inhoud</span><span>${p.volume}</span></div>
+    ${p.facts.map(f=>`<div class="row"><span>${f[0]}</span><span>${f[1]}</span></div>`).join('')}
+    <div class="row"><span>Prijs</span><span>${eur(p.price)}</span></div>
+    <p class="warn">${p.warn}</p>
+    ${barcodeSVG(p.sku,40)}
+    <button class="full" data-add="${p.sku}">IN MANDJE · ${eur(p.price)} ✱</button>
+  `;
+
+  if(spin && mesh){
+    mesh.userData.spin += Math.PI*2;
+    gsap.to(mesh.rotation,{
+      y:mesh.userData.spin,
+      x:0,
+      duration:1.2,
+      ease:'power4.inOut',
+      overwrite:'auto'
+    });
+  }
+}
+
+factsEl.addEventListener('click',e=>{
+  const b = e.target.closest('[data-add]');
+  if(!b) return;
+  add(b.dataset.add,1);
+  const p = products.find(x=>x.userData.product.sku===b.dataset.add);
+  if(p) hop(p);
+});
+
+/* ============ MANDJE ============ */
+const cart = new Map(JSON.parse(localStorage.getItem('whiskey-aisle-cart')||'[]'));
+
 function add(sku,d){
-  const q=(cart.get(sku)||0)+d;
-  q<=0?cart.delete(sku):cart.set(sku,q);
-  localStorage.setItem('aisle5-cart',JSON.stringify([...cart]));
+  const q = (cart.get(sku)||0) + d;
+  q<=0 ? cart.delete(sku) : cart.set(sku,q);
+  localStorage.setItem('whiskey-aisle-cart',JSON.stringify([...cart]));
   renderBasket();
 }
+
 function renderBasket(printAnim){
-  const rows=[...cart].map(([sku,q])=>{
-    const s=bySku(sku);
-    return `<div class="line"><span class="l">${q} × ${s.name}</span><span>${eur(s.price*q)}</span></div>
-      <div class="sub">${sku} · ${s.weight}
-        <button class="mini" data-dec="${sku}" aria-label="Minder">−</button><button class="mini" data-inc="${sku}" aria-label="Meer">+</button></div>
+  const rows = [...cart].map(([sku,q])=>{
+    const p = bySku(sku);
+    return `<div class="line"><span class="l">${q} × ${p.name}</span><span>${eur(p.price*q)}</span></div>
+      <div class="sub">${sku} · ${p.volume}
+        <button class="mini" data-dec="${sku}" aria-label="Minder">−</button><button class="mini" data-inc="${sku}" aria-label="Meer">+</button>
+      </div>
       ${barcodeSVG(sku,30)}`;
   }).join('');
-  const sub=[...cart].reduce((t,[sku,q])=>t+bySku(sku).price*q,0);
-  const count=[...cart.values()].reduce((a,b)=>a+b,0);
-  basketEl.className=printAnim?'print':'';
-  basketEl.innerHTML=`
+
+  const sub = [...cart].reduce((t,[sku,q])=>t+bySku(sku).price*q,0);
+  const count = [...cart.values()].reduce((a,b)=>a+b,0);
+
+  basketEl.className = printAnim ? 'print' : '';
+  basketEl.innerHTML = `
     <h2 style="font-size:26px">— MANDJE —</h2>
-    ${rows||'<p class="center">LEEG · PAK IETS UIT HET SCHAP</p>'}
+    ${rows || '<p class="center">LEEG · KIES EEN FLES UIT HET SCHAP</p>'}
     <hr class="dash">
     <div class="line"><span class="l">SUBTOTAAL</span><span>${eur(sub)}</span></div>
     <div class="line"><span class="l">BTW 21%</span><span>${eur(sub*VAT)}</span></div>
     <div class="line total"><span>TOTAAL</span><span>${eur(sub*(1+VAT))}</span></div>
     <p class="center">ARTIKELEN: ${count}</p>
     ${barcodeSVG('501234599999',46)}
-    <p class="center">BEDANKT VOOR UW BEZOEK<br>GEEN RETOUR OP IDEEËN</p>
-    <button class="full" id="checkout" ${count?'':'disabled'}>AFREKENEN →</button>`;
+    <p class="center">BEDANKT VOOR UW BEZOEK<br>GENIET VERANTWOORD</p>
+    <button class="full" id="checkout" ${count?'':'disabled'}>AFREKENEN →</button>
+  `;
+
   if(printAnim) [...basketEl.children].forEach((c,i)=>c.style.setProperty('--i',i));
   if(count===0) document.querySelector('#checkout').style.opacity=.4;
 }
+
 basketEl.addEventListener('click',e=>{
-  const inc=e.target.closest('[data-inc]'), dec=e.target.closest('[data-dec]');
+  const inc = e.target.closest('[data-inc]');
+  const dec = e.target.closest('[data-dec]');
   if(inc) add(inc.dataset.inc,1);
   if(dec) add(dec.dataset.dec,-1);
+
   if(e.target.id==='checkout' && cart.size){
     renderBasket(true);
-    const lines=[...cart].map(([sku,q])=>`${q}x ${bySku(sku).name} (${sku}) - ${eur(bySku(sku).price*q)}`).join('%0D%0A');
-    setTimeout(()=>{ location.href=`mailto:${MAIL}?subject=Bestelling%20Aisle%205&body=${lines}`; },1200);
+    const lines = [...cart].map(([sku,q])=>`${q}x ${bySku(sku).name} (${sku}) - ${eur(bySku(sku).price*q)}`).join('%0D%0A');
+    setTimeout(()=>{
+      location.href=`mailto:${MAIL}?subject=Bestelling%20The%20Whiskey%20Aisle&body=${lines}`;
+    },1200);
   }
 });
 
 /* ============ START ============ */
 renderBasket();
-select(SERVICES[0].sku,false);
+selectProduct(PRODUCTS[0].sku,false);
 build();
 </script>
 </body>
